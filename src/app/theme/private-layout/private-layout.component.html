@@ -1,0 +1,128 @@
+<header>
+  <nav class="navbar navbar-inverse1 navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button
+          type="button"
+          class="navbar-toggle collapsed"
+          data-toggle="collapse"
+          data-target="#navbar"
+          aria-expanded="false"
+          aria-controls="navbar"
+        >
+          <!-- <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span> -->
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand">
+          <img src="assets/images/login-logo.png" height="40px" />
+        </a>
+      </div>
+
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li
+            class="nav-item dropdown"
+            ngbDropdown
+            [ngClass]="{ open: openDDL == 'home' }"
+            (mouseover)="changeStyle($event, 'home')"
+            (mouseout)="changeStyle($event, '')"
+          >
+            <a
+              class="nav-link dropdown-toggle"
+              id="id01"
+              href="#"
+              ngbDropdownToggle
+              >Home <span class="caret"></span
+            ></a>
+            <ul class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
+              <li><a>Companies</a></li>
+              <li><a>Projects</a></li>
+              <li><a>RFQ</a></li>
+              <li><a>Parts</a></li>
+              <li><a>Drawings</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <div class="navbar-form navbar-search-form" role="search">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search"
+                  name="srch-term"
+                  id="srch-term"
+                  autocomplete="off"
+                />
+                <div class="input-group-btn">
+                  <button class="btn btn-default" type="button">
+                    <i class="glyphicon glyphicon-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li
+            class="nav-item dropdown"
+            ngbDropdown
+            [ngClass]="{ open: openDDL == 'profile' }"
+            (mouseover)="changeStyle($event, 'profile')"
+            (mouseout)="changeStyle($event, '')"
+          >
+            <a class="nav-link dropdown-toggle" id="id02" ngbDropdownToggle
+              >{{ loggedInUser.fname }} <span class="caret"></span
+            ></a>
+            <ul class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
+              <li><a [routerLink]="['/profile']">My Profile</a></li>
+              <li><a [routerLink]="['/users']">User Administration</a></li>
+              <li><a>Document Types</a></li>
+              <li (click)="logout()"><a>Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!--/.navbar-collapse -->
+    </div>
+  </nav>
+</header>
+<div class="clearfix"></div>
+<main role="main" class="fn-wh container-fluid mb80">
+  <router-outlet class=""></router-outlet>
+  <div class="setting-icon text-center">
+    <div class="dropup">
+      <a
+        class="dropdown-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <img src="assets/images/settings.png" height="40px" />
+        <p class="mt5 fn-wh">Settings</p>
+      </a>
+      <ul class="dropdown-menu pull-right">
+        <li><a>Option 1</a></li>
+        <li><a>Option 2</a></li>
+        <li><a>Option 3</a></li>
+        <li><a>Option 4</a></li>
+        <li><a>Option 5</a></li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="clearfix"></div>
+    <div class=" fn-wh text-center text-muted" style="">
+      <p>@{{ year }}, Skytec, Inc.</p>
+      <div class="fw-b">
+        Powered By <img src="assets/images/logo-tranc.png" />
+      </div>
+    </div>
+  </div>
+</footer>

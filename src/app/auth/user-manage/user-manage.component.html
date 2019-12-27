@@ -1,0 +1,299 @@
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <div class="container">
+      <!-- BEGIN PAGE CONTENT INNER -->
+      <div class="page-content-inner">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="section-container">
+              <div class="section-title page-header">
+                <h1 class="pull-left">Add New User</h1>
+                <div class="toolbar pull-right"></div>
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="section-body">
+                <form
+                  name="form"
+                  (ngSubmit)="f.form.valid && saveUser()"
+                  #f="ngForm"
+                  novalidate
+                >
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Name *</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div>
+                          <input
+                            id="fname"
+                            type="text"
+                            class="form-control"
+                            name="fname"
+                            [(ngModel)]="userdata.fname"
+                            #fname="ngModel"
+                            required
+                            placeholder="Name"
+                          />
+                        </div>
+                        <div *ngIf="f.submitted && fname.invalid" class="error">
+                          <div *ngIf="fname.errors.required">
+                            This is required field
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Username *</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div>
+                          <input
+                            id="username"
+                            type="text"
+                            class="form-control"
+                            name="username"
+                            [(ngModel)]="userdata.username"
+                            #username="ngModel"
+                            required
+                            placeholder="Username"
+                            [disabled]="userId"
+                          />
+                        </div>
+                        <div
+                          *ngIf="f.submitted && username.invalid"
+                          class="error"
+                        >
+                          <div *ngIf="username.errors.required">
+                            This is required field
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Password *</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="" [ngClass]="{ 'input-group': userId }">
+                          <input
+                            id="password"
+                            type="password"
+                            class="form-control"
+                            name="password"
+                            [(ngModel)]="userdata.password"
+                            #password="ngModel"
+                            required
+                            placeholder="Password"
+                            [disabled]="!userdata.canChangePassword"
+                          />
+                          <span
+                            *ngIf="userId"
+                            class="input-group-addon"
+                            role="button"
+                            (click)="
+                              changePassword()
+                            "
+                            ><i class="glyphicon glyphicon-pencil"></i
+                          ></span>
+                        </div>
+                        <div
+                          *ngIf="f.submitted && password.invalid"
+                          class="error"
+                        >
+                          <div *ngIf="password.errors.required">
+                            This is required field
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Permission Administration</label>
+                      </div>
+                      <div class="col-md-8">
+                        <label
+                          *ngFor="let role of allRoels.adminRoles"
+                          class="mr15"
+                        >
+                          <input
+                            id="adminRoles{{ role.slug }}"
+                            type="checkbox"
+                            class=""
+                            [(ngModel)]="role.id"
+                            name="{{ role.slug }}"
+                            (change)="
+                              onRoleChange($event, role, userdata.role_ids)
+                            "
+                            [checked]="
+                              userdata.role_ids.indexOf(role._id) !== -1
+                            "
+                          />
+                          {{ role.abbr }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Permission internal</label>
+                      </div>
+                      <div class="col-md-8">
+                        <label
+                          *ngFor="let role of allRoels.internalRoles"
+                          class="mr15"
+                        >
+                          <input
+                            id="internalRoles{{ role.slug }}"
+                            type="checkbox"
+                            class=""
+                            [(ngModel)]="role.id"
+                            name="{{ role.slug }}"
+                            (change)="
+                              onRoleChange($event, role, userdata.role_ids)
+                            "
+                            [checked]="
+                              userdata.role_ids.indexOf(role._id) !== -1
+                            "
+                          />
+                          {{ role.abbr }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Permission DOA</label>
+                      </div>
+                      <div class="col-md-8">
+                        <label
+                          *ngFor="let role of allRoels.doaRoles"
+                          class="mr15"
+                        >
+                          <input
+                            id="doaRoles{{ role.slug }}"
+                            type="checkbox"
+                            class=""
+                            [(ngModel)]="role.id"
+                            name="{{ role.slug }}"
+                            (change)="
+                              onRoleChange($event, role, userdata.role_ids)
+                            "
+                            [checked]="
+                              userdata.role_ids.indexOf(role._id) !== -1
+                            "
+                          />
+                          {{ role.abbr }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Permission POA</label>
+                      </div>
+                      <div class="col-md-8">
+                        <label
+                          *ngFor="let role of allRoels.poaRoles"
+                          class="mr15"
+                        >
+                          <input
+                            id="poaRoles{{ role.slug }}"
+                            type="checkbox"
+                            class=""
+                            [(ngModel)]="role.id"
+                            name="{{ role.slug }}"
+                            (change)="
+                              onRoleChange($event, role, userdata.role_ids)
+                            "
+                            [checked]="
+                              userdata.role_ids.indexOf(role._id) !== -1
+                            "
+                          />
+                          {{ role.abbr }}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Function</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div>
+                          <input
+                            id="functions"
+                            type="text"
+                            class="form-control"
+                            name="functions"
+                            [(ngModel)]="userdata.functions"
+                            #functions="ngModel"
+                            placeholder=""
+                          />
+                        </div>
+                        <div
+                          *ngIf="f.submitted && functions.invalid"
+                          class="error"
+                        >
+                          <div *ngIf="functions.errors.required">
+                            This is required field
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Active</label>
+                      </div>
+                      <div class="col-md-8">
+                        <div>
+                          <ui-switch
+                            name="active"
+                            [(ngModel)]="userdata.active"
+                            [checked]="userdata.active"
+                            checkedlabel="Yes"
+                            uncheckedlabel="No"
+                          ></ui-switch>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="pull-right">
+                    <a [routerLink]="['/users']" class="btn btn-default mr5">
+                      Cancel
+                    </a>
+
+                    <button class="btn btn-primary">
+                      Save
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

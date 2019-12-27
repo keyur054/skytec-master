@@ -1,0 +1,110 @@
+<div class="page-content-wrapper">
+  <div class="page-content">
+    <div class="container">
+      <!-- BEGIN PAGE CONTENT INNER -->
+      <div class="page-content-inner">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="section-container">
+              <div class="section-title page-header">
+                <h1 class="pull-left">User Administration</h1>
+                <div class="toolbar pull-right">
+                  <a
+                    class="btn btn-primary mt20"
+                    [routerLink]="'/users/create'"
+                  >
+                    Add
+                  </a>
+                </div>
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="section-body">
+                <div class="table-responsive">
+                  <table
+                    class="table row-border hover"
+                    [mfData]="userList"
+                    #mf="mfDataTable"
+                    [mfRowsOnPage]="10"
+                  >
+                    <thead>
+                      <tr>
+                        <th>No</th>
+                        <th>
+                          <mfDefaultSorter by="fname">Name</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="username"
+                            >Username</mfDefaultSorter
+                          >
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="adminRoles"
+                            >Permission administration</mfDefaultSorter
+                          >
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="internalRoles"
+                            >Permission Internal</mfDefaultSorter
+                          >
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="doaRoles"
+                            >Permission DOA</mfDefaultSorter
+                          >
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="poaRoles"
+                            >Permission POA</mfDefaultSorter
+                          >
+                        </th>
+                        <th>Active</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let user of mf.data; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ user.fname }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>
+                          {{ user.adminRoles }}
+                        </td>
+                        <td>{{ user.internalRoles }}</td>
+                        <td>{{ user.doaRoles }}</td>
+                        <td>{{ user.poaRoles }}</td>
+                        <td>{{ user.active ? "Yes" : "No" }}</td>
+                        <td>
+                          <a
+                            [routerLink]="['/users/update', user._id]"
+                            type="button"
+                            class="btn btn-primary mr5"
+                          >
+                            Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger">
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="9">
+                          <mfBootstrapPaginator
+                            [rowsOnPageSet]="[5, 10, 25]"
+                          ></mfBootstrapPaginator>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

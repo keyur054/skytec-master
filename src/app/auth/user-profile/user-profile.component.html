@@ -1,0 +1,165 @@
+<div class="">
+  <div class="page-content-wrapper">
+    <div class="page-content">
+      <div class="container">
+        <!-- BEGIN PAGE CONTENT INNER -->
+        <div class="page-content-inner">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="section-container">
+                <div class="section-title page-header">
+                  <h1 class="pull-left">{{ pageTitle }}</h1>
+                  <div class="toolbar pull-right"></div>
+                  <div class="clearfix"></div>
+                </div>
+
+                <div class="section-body">
+                  <div class="form-group" *ngIf="userDetail._id">
+                    <div class="row">
+                      <div class="col-md-4"><label>Name:</label></div>
+                      <div class="col-md-8">{{ userDetail.fname }}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4"><label>Username:</label></div>
+                      <div class="col-md-8">{{ userDetail.username }}</div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4"><label>Password:</label></div>
+                      <div class="col-md-8">
+                        * * * * * * * *
+                        <a
+                          class="btn btn-primary"
+                          (click)="openPasswordReset(content)"
+                          >Reset Password</a
+                        >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4"><label>Roles:</label></div>
+                      <div class="col-md-8">
+                        {{ roleNames(userDetail.role_ids) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reset Password</h4>
+  </div>
+  <form
+    name="form"
+    (ngSubmit)="f.form.valid && resetPassword()"
+    #f="ngForm"
+    novalidate
+  >
+    <div class="modal-body">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label>Old Password</label>
+          </div>
+          <div class="col-md-8">
+            <div>
+              <input
+                id="oldpassword"
+                type="password"
+                class="form-control"
+                name="oldpassword"
+                [(ngModel)]="model.oldpassword"
+                #oldpassword="ngModel"
+                required
+                placeholder="Old Password"
+              />
+            </div>
+            <div *ngIf="f.submitted && oldpassword.invalid" class="error">
+              <div *ngIf="oldpassword.errors.required">
+                This is required field
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label>New Password</label>
+          </div>
+          <div class="col-md-8">
+            <div>
+              <input
+                id="newpassword"
+                type="password"
+                class="form-control"
+                name="newpassword"
+                [(ngModel)]="model.newpassword"
+                #newpassword="ngModel"
+                required
+                placeholder="New Password"
+                validateEqual="confirmpassword"
+                reverse="true"
+              />
+            </div>
+            <div *ngIf="f.submitted && newpassword.invalid" class="error">
+              <div *ngIf="newpassword.errors.required">
+                This is required field
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4">
+            <label>Confirm Password</label>
+          </div>
+          <div class="col-md-8">
+            <div>
+              <input
+                id="confirmpassword"
+                type="password"
+                class="form-control"
+                name="confirmpassword"
+                [(ngModel)]="model.confirmpassword"
+                #confirmpassword="ngModel"
+                required
+                placeholder="Confirm Password"
+                validateEqual="newpassword"
+                reverse="false"
+              />
+            </div>
+            <div *ngIf="f.submitted && confirmpassword.invalid" class="error">
+              <div *ngIf="confirmpassword.errors.required">
+                This is required field
+              </div>
+              <div
+                *ngIf="
+                  !confirmpassword.errors.required &&
+                  !confirmpassword.errors.validateEqual
+                "
+              >
+                Password mismatch
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="modal.dismiss()" class="btn btn-default">
+        Cancel
+      </button>
+      <button class="btn btn-primary">
+        Save
+      </button>
+    </div>
+  </form>
+</ng-template>

@@ -1,0 +1,22 @@
+.navbar {
+  margin: 35px;
+}
+.nav > li > a:focus,
+.nav > li > a:hover {
+  text-decoration: none;
+  background: transparent;
+  color: #fff;
+}
+.navbar-search-form .btn {
+  background: #4c6f9c;
+  color: darkgray;
+}
+.navbar-search-form input {
+  background: #4c6f9c;
+  color: white;
+  border: 1px solid #4c6f9c !important;
+}
+
+.navbar-search-form .btn {
+  border: 1px solid #4c6f9c !important;
+}
