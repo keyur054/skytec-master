@@ -17,7 +17,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand">
-          <img src="assets/images/login-logo.png" height="40px" />
+          <img src="assets/images/login-logo.png" height="40px" [routerLink]="['/dashboard']" />
         </a>
       </div>
 
@@ -38,7 +38,7 @@
               >Home <span class="caret"></span
             ></a>
             <ul class="dropdown-menu" aria-labelledby="id01" ngbDropdownMenu>
-              <li><a>Companies</a></li>
+              <li><a [routerLink]="['/company']">Companies</a></li>
               <li><a>Projects</a></li>
               <li><a>RFQ</a></li>
               <li><a>Parts</a></li>

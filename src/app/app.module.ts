@@ -23,6 +23,7 @@ import { ValidateEqualDirective } from "./auth/validate-equal.directive";
 import { UserListComponent } from "./auth/user-list/user-list.component";
 import { UserManageComponent } from "./auth/user-manage/user-manage.component";
 import { CompanyListComponent } from './company/company-list/company-list.component';
+import { CompanyManageComponent } from './company/company-manage/company-manage.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CompanyListComponent } from './company/company-list/company-list.compon
     ValidateEqualDirective,
     UserListComponent,
     UserManageComponent,
-    CompanyListComponent
+    CompanyListComponent,
+    CompanyManageComponent
   ],
   imports: [
     NgbModule,

@@ -7,13 +7,27 @@
             <div class="col-sm-12">
               <div class="section-container">
                 <div class="section-title page-header">
-                  <h1 class="pull-left">Company Administration</h1>
+                  <h1 class="pull-left">Company / Supplier Administration</h1>
                   <div class="toolbar pull-right">
-                    <a
-                      class="btn btn-primary mt20"
-                      [routerLink]="'/users/create'"                    >
+                    <a class="btn btn-primary mt20" [routerLink]="['/company/create']">
                       Add
                     </a>
+                  </div>
+                  <div class="">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                   <div class="clearfix"></div>
                 </div>
@@ -27,54 +41,41 @@
                       [mfRowsOnPage]="10">
                       <thead>
                         <tr>
-                          <th>No</th>
+                          <th>No.</th>
                           <th>
-                            <mfDefaultSorter by="fname">Name</mfDefaultSorter>
+                            <mfDefaultSorter by="fname">Customer No</mfDefaultSorter>
                           </th>
                           <th>
-                            <mfDefaultSorter by="username"
-                              >Username</mfDefaultSorter
+                            <mfDefaultSorter by="username">Supplier No</mfDefaultSorter
                             >
                           </th>
                           <th>
-                            <mfDefaultSorter by="adminRoles"
-                              >Permission administration</mfDefaultSorter
-                            >
+                            <mfDefaultSorter by="adminRoles">Company name</mfDefaultSorter>
                           </th>
                           <th>
-                            <mfDefaultSorter by="internalRoles"
-                              >Permission Internal</mfDefaultSorter
-                            >
+                            <mfDefaultSorter by="internalRoles">Company short name</mfDefaultSorter>
                           </th>
                           <th>
-                            <mfDefaultSorter by="doaRoles"
-                              >Permission DOA</mfDefaultSorter
-                            >
+                            <mfDefaultSorter by="doaRoles">QMS</mfDefaultSorter>
                           </th>
                           <th>
-                            <mfDefaultSorter by="poaRoles"
-                              >Permission POA</mfDefaultSorter
-                            >
+                            <mfDefaultSorter by="poaRoles">Active</mfDefaultSorter>
                           </th>
-                          <th>Active</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let user of mf.data; let i = index">
+                        <tr *ngFor="let company of mf.data; let i = index">
                           <td>{{ i + 1 }}</td>
-                          <td>{{ user.fname }}</td>
-                          <td>{{ user.username }}</td>
-                          <td>
-                            {{ user.adminRoles }}
-                          </td>
-                          <td>{{ user.internalRoles }}</td>
-                          <td>{{ user.doaRoles }}</td>
-                          <td>{{ user.poaRoles }}</td>
-                          <td>{{ user.active ? "Yes" : "No" }}</td>
+                          <td>{{ company.customer_internalC }}</td>
+                          <td>{{ company.customer_internalS  }}</td>
+                          <td>{{ company.company_name }}</td>
+                          <td>{{ company.company_short_name }}</td>
+                          <td>{{ company.qms[0].value }}</td>
+                          <td>{{ company.active ? "Yes" : "No" }}</td>
                           <td>
                             <a
-                              [routerLink]="['/users/update', user._id]"
+                              [routerLink]="['/company/update', company._id]"
                               type="button"
                               class="btn btn-primary mr5"
                             >

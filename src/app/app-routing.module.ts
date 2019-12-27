@@ -9,6 +9,7 @@ import { UserProfileComponent } from "./auth/user-profile/user-profile.component
 import { UserListComponent } from "./auth/user-list/user-list.component";
 import { UserManageComponent } from "./auth/user-manage/user-manage.component";
 import { CompanyListComponent } from "./company/company-list/company-list.component";
+import { CompanyManageComponent } from "./company/company-manage/company-manage.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,8 @@ const routes: Routes = [
       { path: "users/create", component: UserManageComponent },
       { path: "users/update/:id", component: UserManageComponent },
       { path: "company", component: CompanyListComponent },
+      { path: "company/create", component: CompanyManageComponent },
+      { path: "company/update/id", component: CompanyManageComponent },
     ],
     canActivate: [AuthGuard]
   }

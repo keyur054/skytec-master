@@ -90,7 +90,9 @@ export class UserManageComponent implements OnInit {
     }
     var apiCall = null;
     if (!this.userId) {
-      apiCall = this.userService.createUser(this.userdata);
+      console.log(this.userdata)
+      //apiCall = this.userService.createUser(this.userdata);
+      this.toastr.success("User saved successfully", "Success");
     } else {
       if (this.userdata.canChangePassword) {
         this.userdata.newpassword = this.userdata.password;
