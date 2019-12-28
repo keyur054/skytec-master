@@ -11,6 +11,18 @@ export class CompanyService {
     return this.apiService.get("web/company");
   }
 
+  createcustomersupplier(param: any) {
+    return this.apiService.post("/web/company/addnew", param);
+  }
+
+  qmsList() : Observable<any>{
+    return this.apiService.get("web/qms");
+  }
+
+  paymenttermsList() : Observable<any>{
+    return this.apiService.get("web/paymentterm");
+  }
+
   constructor(private apiService: ApiService) {}
   login(param: any): Observable<any> {
     return this.apiService.post("auth/web/login", param);

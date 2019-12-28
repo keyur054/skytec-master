@@ -1,125 +1,133 @@
 <div class="page-content-wrapper">
-    <div class="page-content">
-      <div class="container">
-        <!-- BEGIN PAGE CONTENT INNER -->
-        <div class="page-content-inner">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="section-container">
-                <div class="section-title page-header">
-                  <h1 class="pull-left">Company / Supplier Administration</h1>
-                  <div class="toolbar pull-right">
-                    <a class="btn btn-primary mt20" [routerLink]="['/company/create']">
-                      Add
-                    </a>
-                  </div>
-                 
-                    <form>
-                      <div class="form-row col-md-12">
-                        <div class="form-group col-md-2">
-                          <label for="inputCity">Company Name</label>
-                          <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="inputState">Customer No</label>
-                          <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="inputZip">Surname</label>
-                          <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="inputZip">City</label>
-                          <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label for="inputZip">Street</label>
-                          <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group col-md-2">
-                          <label></label>
-                          <button class="btn btn-info">
-                            Search
-                          </button>
-                        </div>
-                      </div>
-                    </form>
-                 
-                  <div class="clearfix"></div>
+  <div class="page-content">
+    <div class="container">
+      <!-- BEGIN PAGE CONTENT INNER -->
+      <div class="page-content-inner">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="section-container">
+              <div class="section-title page-header">
+                <h1 class="pull-left">Company / Supplier Administration</h1>
+                <div class="toolbar pull-right">
+                  <a class="btn btn-primary mt20" [routerLink]="['/company/create']">
+                    Add
+                  </a>
                 </div>
-  
-                <div class="section-body">
-                  <div class="table-responsive">
-                    <table
-                      class="table row-border hover"
-                      [mfData]="companyList"
-                      #mf="mfDataTable"
-                      [mfRowsOnPage]="10">
-                      <thead>
-                        <tr>
-                          <th>No.</th>
-                          <th>
-                            <mfDefaultSorter by="fname">Customer No</mfDefaultSorter>
-                          </th>
-                          <th>
-                            <mfDefaultSorter by="username">Supplier No</mfDefaultSorter
-                            >
-                          </th>
-                          <th>
-                            <mfDefaultSorter by="adminRoles">Company name</mfDefaultSorter>
-                          </th>
-                          <th>
-                            <mfDefaultSorter by="internalRoles">Company short name</mfDefaultSorter>
-                          </th>
-                          <th>
-                            <mfDefaultSorter by="doaRoles">QMS</mfDefaultSorter>
-                          </th>
-                          <th>
-                            <mfDefaultSorter by="poaRoles">Active</mfDefaultSorter>
-                          </th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let company of mf.data; let i = index">
-                          <td>{{ i + 1 }}</td>
-                          <td>{{ company.customer_internalC }}</td>
-                          <td>{{ company.customer_internalS  }}</td>
-                          <td>{{ company.company_name }}</td>
-                          <td>{{ company.company_short_name }}</td>
-                          <td>{{ company.qms[0].value }}</td>
-                          <td>{{ company.active ? "Yes" : "No" }}</td>
-                          <td>
-                            <a
-                              [routerLink]="['/company/update', company._id]"
-                              type="button"
-                              class="btn btn-primary mr5"
-                            >
-                              Edit
-                            </a>
-  
-                            <button type="button" class="btn btn-danger">
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td colspan="9">
-                            <mfBootstrapPaginator
-                              [rowsOnPageSet]="[5, 10, 25]"
-                            ></mfBootstrapPaginator>
-                          </td>
-                        </tr>
-                      </tfoot>
-                    </table>
+
+                <form>
+                  <div class="form-row col-md-12">
+                    <div class="form-group col-md-2">
+                      <label for="inputCity">Company Name</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputState">Customer No</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputZip">Surname</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputZip">City</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label for="inputZip">Street</label>
+                      <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group col-md-2">
+                      <label></label>
+                      <button class="btn btn-info">
+                        Search
+                      </button>
+                    </div>
                   </div>
+                </form>
+
+                <div class="clearfix"></div>
+              </div>
+
+              <div class="section-body">
+                <div class="table-responsive">
+                  <table class="table row-border hover" [mfData]="companyList" #mf="mfDataTable" [mfRowsOnPage]="10">
+                    <thead>
+                      <tr>
+                        <th>No.</th>
+                        <th>
+                          <mfDefaultSorter by="fname">Customer No</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="username">Supplier No</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="adminRoles">Company name</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="internalRoles">Company short name</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="doaRoles">QMS</mfDefaultSorter>
+                        </th>
+                        <th>
+                          <mfDefaultSorter by="poaRoles">Active</mfDefaultSorter>
+                        </th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let company of mf.data; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ company.customer_internalC }}</td>
+                        <td>{{ company.customer_internalS  }}</td>
+                        <td>{{ company.company_name }}</td>
+                        <td>{{ company.company_short_name }}</td>
+                        <td>{{ company.qms[0].value }}</td>
+                        <td>{{ company.active ? "Yes" : "No" }}</td>
+                        <td>
+                          <a [routerLink]="['/company/update', company._id]" type="button" class="btn btn-primary mr5">
+                            Edit
+                          </a>
+
+                          <button type="button" class="btn btn-danger" (click)="open(open)" data-toggle="modal"
+                            data-target="#deleteModal">
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td colspan="9">
+                          <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25]"></mfBootstrapPaginator>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
                 </div>
               </div>
+              <!-- <div id="deleteModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+
+                      <div class="modal-content"> -->
+              <ng-template #content let-modal>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Delete</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete this Company / Supplier?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" (click)="deleteCompany">Delete</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </ng-template>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
