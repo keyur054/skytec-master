@@ -1,1 +1,225 @@
-<p>company-manage works!</p>
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="container">
+            <!-- BEGIN PAGE CONTENT INNER -->
+            <div class="page-content-inner">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="section-container">
+                            <div class="section-title page-header">
+                                <h1 class="pull-left">Add New Customer / Supplier</h1>
+                                <div class="toolbar pull-right"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="section-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-target="home">Customer / Supplier</a></li>
+                                    <li><a href="#menu1" routerLinkActive="false">Contacts</a></li>
+                                    <li><a data-target="home">Addresses</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="home" class="tab-pane fade in active">
+                                        <h3>Add Customer / Supplier</h3>
+                                        <form name="form" (ngSubmit)="f.form.valid && saveUser()" #f="ngForm"
+                                            novalidate>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Company Name *</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input id="company_name" type="text" class="form-control"
+                                                                name="fname" [(ngModel)]="companydata.company_name"
+                                                                #company_name="ngModel" required placeholder="Name" />
+                                                        </div>
+                                                        <div *ngIf="f.submitted && company_name.invalid" class="error">
+                                                            <div *ngIf="company_name.errors.required">
+                                                                This is required field
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Customer / Supplier No *</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input id="customer_supplier_no" type="text" class="form-control"
+                                                                name="customer_supplier_no" [(ngModel)]="companydata.customer_supplier_no"
+                                                                #customer_supplier_no="ngModel" required placeholder="customer_supplier_no"
+                                                                [disabled]="userId" />
+                                                        </div>
+                                                        <div *ngIf="f.submitted && customer_supplier_no.invalid" class="error">
+                                                            <div *ngIf="customer_supplier_no.errors.required">
+                                                                This is required field
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Company Short Name *</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="" [ngClass]="{ 'input-group': userId }">
+                                                            <input id="company_short_name" type="company_short_name" class="form-control"
+                                                                name="company_short_name" [(ngModel)]="companydata.company_short_name"
+                                                                #company_short_name="ngModel" required placeholder="company_short_name"
+                                                                [disabled]="!companydata.ObjectId" />
+                                                            <span *ngIf="companydata.ObjectId" class="input-group-addon" role="button"
+                                                                (click)="changePassword()"><i class="glyphicon glyphicon-pencil"></i></span>
+                                                        </div>
+                                                        <div *ngIf="f.submitted && company_short_name.invalid" class="error">
+                                                            <div *ngIf="company_short_name.errors.required">
+                                                                This is required field
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Customer / Supplier</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                            <input id="adminRoles{{ role.slug }}" type="checkbox" class="" [(ngModel)]="companydata.customer_supplier"
+                                                             />
+                                                            <label class="mr15">Customer</label>
+
+                                                            <input id="adminRoles{{ role.slug }}" type="checkbox" class="" [(ngModel)]="companydata.customer_supplier"
+                                                             />
+                                                            <label class="mr15">Supplier</label>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Permission internal</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <label *ngFor="let role of allRoels.internalRoles" class="mr15">
+                                                            <input id="internalRoles{{ role.slug }}" type="checkbox"
+                                                                class="" [(ngModel)]="role.id" name="{{ role.slug }}"
+                                                                (change)="
+                                                    onRoleChange($event, role, companydata.role_ids)
+                                                  " [checked]="
+                                                    companydata.role_ids.indexOf(role._id) !== -1
+                                                  " />
+                                                            {{ role.abbr }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Permission DOA</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <label *ngFor="let role of allRoels.doaRoles" class="mr15">
+                                                            <input id="doaRoles{{ role.slug }}" type="checkbox" class=""
+                                                                [(ngModel)]="role.id" name="{{ role.slug }}" (change)="
+                                                    onRoleChange($event, role, companydata.role_ids)
+                                                  " [checked]="
+                                                    companydata.role_ids.indexOf(role._id) !== -1
+                                                  " />
+                                                            {{ role.abbr }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Permission POA</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <label *ngFor="let role of allRoels.poaRoles" class="mr15">
+                                                            <input id="poaRoles{{ role.slug }}" type="checkbox" class=""
+                                                                [(ngModel)]="role.id" name="{{ role.slug }}" (change)="
+                                                    onRoleChange($event, role, companydata.role_ids)
+                                                  " [checked]="
+                                                    companydata.role_ids.indexOf(role._id) !== -1
+                                                  " />
+                                                            {{ role.abbr }}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Function</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <input id="functions" type="text" class="form-control"
+                                                                name="functions" [(ngModel)]="companydata.functions"
+                                                                #functions="ngModel" placeholder="" />
+                                                        </div>
+                                                        <div *ngIf="f.submitted && functions.invalid" class="error">
+                                                            <div *ngIf="functions.errors.required">
+                                                                This is required field
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Active</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div>
+                                                            <ui-switch name="active" [(ngModel)]="companydata.active"
+                                                                [checked]="companydata.active" checkedlabel="Yes"
+                                                                uncheckedlabel="No"></ui-switch>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a [routerLink]="['/users']" class="btn btn-default mr5">
+                                                    Cancel
+                                                </a>
+
+                                                <button class="btn btn-primary">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div id="menu1" class="tab-pane fade">
+                                        <h3>Menu 1</h3>
+                                        <p>Some content in menu 1.</p>
+                                    </div>
+                                    <div id="menu2" class="tab-pane fade">
+                                        <h3>Menu 2</h3>
+                                        <p>Some content in menu 2.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

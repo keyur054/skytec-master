@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CompanyManageComponent implements OnInit {
 
+  companydata: any = {
+    active: true
+  };
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }
