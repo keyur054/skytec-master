@@ -6,71 +6,69 @@ import { Observable } from "rxjs";
   providedIn: "root"
 })
 export class CompanyService {
+  constructor(private apiService: ApiService) { }
 
   companyList(): Observable<any> {
     return this.apiService.get("web/company");
+  }
+
+  companyDetail(id: any): Observable<any> {
+    return this.apiService.get("web/company/edit/" + id);
+  }
+
+  deleteCompany(id: any) {
+    return this.apiService.post("web/company/delete/" + id);
+  }
+
+  searchCompanyList(param: any) {
+    return this.apiService.post("web/company/search" ,param);
   }
 
   createcustomersupplier(param: any) {
     return this.apiService.post("/web/company/addnew", param);
   }
 
-  qmsList() : Observable<any>{
+  updatecustomersupplier(id: any, param: any) {
+    return this.apiService.post("/web/company/" + id, param);
+  }
+
+  qmsList(): Observable<any> {
     return this.apiService.get("web/qms");
   }
 
-  paymenttermsList() : Observable<any>{
+  paymenttermsList(): Observable<any> {
     return this.apiService.get("web/paymentterm");
   }
 
-  constructor(private apiService: ApiService) {}
-  login(param: any): Observable<any> {
-    return this.apiService.post("auth/web/login", param);
-  }
-  userDetail(id: any): Observable<any> {
-    return this.apiService.get("web/users/" + id);
-  }
-  passwordUpdate(id: String, param: any): Observable<any> {
-    return this.apiService.post("/web/users/password/" + id, param);
+  contactsList(id: any): Observable<any> {
+    return this.apiService.get("web/contacts/" + id);
   }
 
-  userList(): Observable<any> {
-    return this.apiService.get("web/users");
-  }
-  roleList(): Observable<any> {
-    return this.apiService.get("web/roles");
-  }
-  seperateRoles(roles) {
-    var rolesByType = {
-      adminRoles: [],
-      internalRoles: [],
-      doaRoles: [],
-      poaRoles: []
-    };
-    roles.forEach(role => {
-      if (role.role_type_ids) {
-        if (role.role_type_ids.indexOf("admin") !== -1) {
-          rolesByType.adminRoles.push(role);
-        }
-        if (role.role_type_ids.indexOf("internal") !== -1) {
-          rolesByType.internalRoles.push(role);
-        }
-        if (role.role_type_ids.indexOf("doa") !== -1) {
-          rolesByType.doaRoles.push(role);
-        }
-        if (role.role_type_ids.indexOf("poa") !== -1) {
-          rolesByType.poaRoles.push(role);
-        }
-      }
-    });
-    return rolesByType;
+  createcontact(param: any) {
+    return this.apiService.post("/web/contact/addnew", param);
   }
 
-  createUser(param: any) {
-    return this.apiService.post("/web/register", param);
+  updatecontact(id: any, param: any) {
+    return this.apiService.post("/web/contact/" + id, param);
   }
 
-  updateUser(id: String, param: any) {
-    return this.apiService.post("/web/users/" + id, param);
+  createaddress(param: any) {
+    return this.apiService.post("/web/address/addnew", param);
   }
+
+  updateaddress(id: any, param: any) {
+    return this.apiService.post("/web/address/" + id, param);
+  }
+
+  addressList(id: any): Observable<any> {
+    return this.apiService.get("web/address/" + id);
+  }
+
+  sexList(): Observable<any> {
+    return this.apiService.get("web/sex");
+  }
+
+
+
+
 }

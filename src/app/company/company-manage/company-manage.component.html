@@ -11,6 +11,7 @@
                                 <div class="toolbar pull-right"></div>
                                 <div class="clearfix"></div>
                             </div>
+                        
                             <div class="section-body mt5">
 
                                 <ul class="nav nav-tabs">
@@ -22,7 +23,8 @@
                                 <div class="tab-content">
                                     <div id="customer" class="tab-pane fade in active">
                                         <h3>Add Customer / Supplier</h3>
-                                        <form name="form" (ngSubmit)="f.form.valid && saveCustomerSupplier();myForm.reset();"
+                                        <form name="form"
+                                            (ngSubmit)="f.form.valid && saveCustomerSupplier();"
                                             #f="ngForm" novalidate>
                                             <div class="form-group">
                                                 <div class="row">
@@ -210,12 +212,153 @@
                                         </form>
                                     </div>
                                     <div id="contacts" class="tab-pane fade">
-                                        <h3>Menu 1</h3>
-                                        <p>Some content in menu 1.</p>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="toolbar pull-right">
+                                                    <a class="btn btn-primary" (click)="openModal(contacts);">
+                                                        Add Contact
+                                                    </a>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table row-border hover" [mfData]="contactsList"
+                                                        #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No.</th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="title">Title
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="first_name">First name
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="surname">Surname
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="function">Function
+                                                                        </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="active">Active
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let contacts of mf.data; let i = index">
+                                                                <td>{{ i + 1 }}</td>
+                                                                <td>{{ contacts.title }}</td>
+                                                                <td>{{ contacts.first_name  }}</td>
+                                                                <td>{{ contacts.surname }}</td>
+                                                                <td>{{ contacts.function }}</td>
+                                                                <td>{{ contacts.active ? "Yes" : "No" }}</td>
+                                                                <td>
+                                                                    <a type="button" class="btn btn-primary mr5">
+                                                                        Edit
+                                                                    </a>
+
+                                                                    <button type="button" class="btn btn-danger"
+                                                                        (click)="companyId=company._id; openModal(content);"
+                                                                        data-toggle="modal" data-target="#deleteModal">
+                                                                        Delete
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25]">
+                                                                    </mfBootstrapPaginator>
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div id="addresses" class="tab-pane fade">
-                                        <h3>Menu 2</h3>
-                                        <p>Some content in menu 2.</p>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="toolbar pull-right">
+                                                    <a class="btn btn-primary" (click)="openModal(addresses);">
+                                                        Add Address
+                                                    </a>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table row-border hover" [mfData]="addressList"
+                                                        #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No.</th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="street">Street
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="number">Number
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="zipcode">Zip code
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="city">City
+                                                                        </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="country">Country
+                                                                        </mfDefaultSorter>
+                                                                </th>
+                                                                <th>
+                                                                    <mfDefaultSorter by="active">Active
+                                                                    </mfDefaultSorter>
+                                                                </th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let address of mf.data; let i = index">
+                                                                <td>{{ i + 1 }}</td>
+                                                                <td>{{ address.street }}</td>
+                                                                <td>{{ address.number  }}</td>
+                                                                <td>{{ address.zipcode }}</td>
+                                                                <td>{{ address.city }}</td>
+                                                                <td>{{ address.country }}</td>
+                                                                <td>{{ address.active ? "Yes" : "No" }}</td>
+                                                                <td>
+                                                                    <a type="button" class="btn btn-primary mr5">
+                                                                        Edit
+                                                                    </a>
+
+                                                                    <button type="button" class="btn btn-danger"
+                                                                        (click)="companyId=company._id; openModal(content);"
+                                                                        data-toggle="modal" data-target="#deleteModal">
+                                                                        Delete
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="9">
+                                                                    <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 25]">
+                                                                    </mfBootstrapPaginator>
+                                                                </td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -226,4 +369,175 @@
             </div>
         </div>
     </div>
+
+    <ng-template #contacts let-modal>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" (click)="modal.close()">&times;</button>
+            <h4 class="modal-title">Add Contact</h4>
+        </div>
+        <form name="form" (ngSubmit)="companyId && f.form.valid && saveContact()" #f="ngForm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-1">
+                            <label>Title</label>
+                            <input type="text" name="title" [(ngModel)]="contactdata.title" #title="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputState">First name*</label>
+                            <input type="text" name="title" [(ngModel)]="contactdata.first_name" #first_name="ngModel"
+                                required class="form-control">
+
+                            <div *ngIf="f.submitted && first_name.invalid" class="error">
+                                <div *ngIf="first_name.errors.required">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Surname*</label>
+                            <input type="text" name="title" [(ngModel)]="contactdata.surname" #surname="ngModel"
+                                required class="form-control">
+
+                            <div *ngIf="f.submitted && surname.invalid" class="error">
+                                <div *ngIf="surname.errors.required">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Sex</label>
+                            <select class="form-control" [(ngModel)]="contactdata.sex" name="sex" #sex="ngModel">
+                                <option *ngFor="let sex of sexList" value={{sex._id}}>
+                                    {{sex.value}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Department</label>
+                            <input type="text" name="title" [(ngModel)]="contactdata.department" #department="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">Function</label>
+                            <input type="text" name="title" [(ngModel)]="contactdata.function" #function="ngModel"
+                                class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-2">
+                            <label>Telephone</label>
+                            <input type="text" name="telephone" [(ngModel)]="contactdata.telephone" #telephone="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Mobile</label>
+                            <input type="number" name="mobile" [(ngModel)]="contactdata.mobile" #mobile="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Email</label>
+                            <input type="email" name="email" [(ngModel)]="contactdata.email" #email="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>Fax</label>
+                            <input type="text" name="fax" [(ngModel)]="contactdata.fax" #fax="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label>URL</label>
+                            <input type="url" name="url" [(ngModel)]="contactdata.url" #url="ngModel"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-10">
+                            <label>Remarks</label>
+                            <input type="text" name="remarks" [(ngModel)]="contactdata.remarks" #remarks="ngModel"
+                                class="form-control">
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <label>Active</label>
+                            <ui-switch name="active" [(ngModel)]="contactdata.active" [checked]="contactdata.active"
+                                checkedlabel="Yes" uncheckedlabel="No"></ui-switch>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="modal.close()">Save</button>
+                <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template #addresses let-modal>
+        <div class="modal-header">
+            <button type="button" class="close" (click)="modal.close()">&times;</button>
+            <h4 class="modal-title">Add Address </h4>
+        </div>
+        <form name="form" (ngSubmit)="companyId && f.form.valid &&  saveAddress()" #f="ngForm" novalidate>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-3">
+                            <label>Street</label>
+                            <input type="text" name="title" [(ngModel)]="addressdata.street" #street="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputState">Number</label>
+                            <input type="number" name="title" [(ngModel)]="addressdata.number" #number="ngModel"
+                                required class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="form-row col-md-12">
+                        <div class="form-group col-md-2">
+                            <label>Zip code</label>
+                            <input type="text" name="zipcode" [(ngModel)]="addressdata.zipcode" #zipcode="ngModel"
+                                class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>City*</label>
+                            <input type="text" name="city" [(ngModel)]="addressdata.city" #city="ngModel"
+                                class="form-control">
+
+                            <div *ngIf="f.submitted && city.invalid" class="error">
+                                <div *ngIf="city.errors.required">
+                                    This is required field
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Country</label>
+                            <input type="email" name="country" [(ngModel)]="addressdata.country" #country="ngModel"
+                                class="form-control">
+                        </div>
+                        
+                        <div class="form-group col-md-2">
+                            <label>Active</label>
+                            <ui-switch name="active" [(ngModel)]="addressdata.active" [checked]="addressdata.active"
+                                checkedlabel="Yes" uncheckedlabel="No"></ui-switch>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" (click)="modal.close()">Save</button>
+                <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
+            </div>
+        </form>
+    </ng-template>
 </div>

@@ -35,7 +35,7 @@ const routes: Routes = [
       { path: "users/update/:id", component: UserManageComponent },
       { path: "company", component: CompanyListComponent },
       { path: "company/create", component: CompanyManageComponent },
-      { path: "company/update/id", component: CompanyManageComponent },
+      { path: "company/update/:id", component: CompanyManageComponent },
     ],
     canActivate: [AuthGuard]
   }
