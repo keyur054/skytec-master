@@ -21,7 +21,7 @@ export class CompanyService {
   }
 
   searchCompanyList(param: any) {
-    return this.apiService.post("web/company/search" ,param);
+    return this.apiService.post("web/company/search", param);
   }
 
   createcustomersupplier(param: any) {
@@ -52,8 +52,20 @@ export class CompanyService {
     return this.apiService.post("/web/contact/" + id, param);
   }
 
+  contactDetail(id: any): Observable<any> {
+    return this.apiService.get("web/contact/edit/" + id);
+  }
+
+  deleteContact(id: any) {
+    return this.apiService.post("web/contact/delete/" + id);
+  }
+
   createaddress(param: any) {
     return this.apiService.post("/web/address/addnew", param);
+  }
+
+  addressDetail(id: any): Observable<any> {
+    return this.apiService.get("web/address/edit/" + id);
   }
 
   updateaddress(id: any, param: any) {
@@ -63,6 +75,11 @@ export class CompanyService {
   addressList(id: any): Observable<any> {
     return this.apiService.get("web/address/" + id);
   }
+
+  deleteAddress(id: any) {
+    return this.apiService.post("web/address/delete/" + id);
+  }
+
 
   sexList(): Observable<any> {
     return this.apiService.get("web/sex");

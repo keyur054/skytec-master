@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/auth/company.service';
 import { ToastrService } from "ngx-toastr";
+import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from "@angular/router";
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-company-manage',
@@ -13,9 +14,11 @@ export class CompanyManageComponent implements OnInit {
   companyId: String;
   contactId: String;
   addressId: String;
+
   companydata: any = {
     customer_supplier: [],
-    active: true
+    active: true,
+    isRename: true
   };
 
   contactdata: any = {
@@ -45,11 +48,13 @@ export class CompanyManageComponent implements OnInit {
 
   ngOnInit() {
     this.companyId = this.route.snapshot.paramMap.get("id");
-    if (this.companyId) {
+    console.log(this.companyId);
+    if (this.companyId != null) {
       this.companydata.ObjectId = this.companyId;
       this.getCompanyDetail();
       this.getContactsList();
       this.getaddressList();
+      this.companydata = false;
     }
 
     this.getQmsList();
@@ -129,7 +134,6 @@ export class CompanyManageComponent implements OnInit {
     }
     var apiCall = null;
     if (!this.companyId) {
-      console.log(this.companydata)
       apiCall = this.companyService.createcustomersupplier(this.companydata);
 
     } else {
@@ -155,7 +159,7 @@ export class CompanyManageComponent implements OnInit {
     }
   }
 
-  saveContact() {
+  saveContact(form: NgForm) {
     console.log("contactdata", this.contactdata);
     if (this.companyId) {
 
@@ -172,6 +176,8 @@ export class CompanyManageComponent implements OnInit {
           if (resp.success) {
             this.toastr.success("Customer / Supplier saved successfully", "Success");
             this.getContactsList();
+            form.resetForm();
+            this.modalService.dismissAll();
             //this.router.navigate(["/company"]);
             //this.router.navigate(["/company/update/" + this.companyId]);
           } else {
@@ -184,23 +190,24 @@ export class CompanyManageComponent implements OnInit {
       this.toastr.error("Customer or supplier not selected", "Error");
   }
 
-  saveAddress() {
+  saveAddress(form: NgForm) {
     console.log("addressdata", this.addressdata);
     if (this.companyId) {
 
       var apiCall = null;
-
       if (!this.addressId) {
         this.addressdata.c_id = this.companyId
         apiCall = this.companyService.createaddress(this.addressdata);
       } else {
-        apiCall = this.companyService.updateaddress(this.companyId, this.addressdata);
+        apiCall = this.companyService.updateaddress(this.addressId, this.addressdata);
       }
       if (apiCall) {
         apiCall.subscribe(resp => {
           if (resp.success) {
             this.toastr.success("Customer / Supplier saved successfully", "Success");
             this.getaddressList();
+            form.resetForm();
+            this.modalService.dismissAll();
             //this.router.navigate(["/company"]);
             //this.router.navigate(["/company/update/" + this.companyId]);
           } else {
@@ -211,6 +218,53 @@ export class CompanyManageComponent implements OnInit {
     }
     else
       this.toastr.error("Customer or Supplier not selected", "Error");
+  }
+
+  getSingleAddress() {
+    console.log(this.addressId)
+    this.companyService.addressDetail(this.addressId).subscribe(data => {
+      if (data.success) {
+        this.addressdata = data.address;
+        console.log("addressdata", this.addressdata);
+      }
+    });
+  }
+
+  getSingleContact() {
+    console.log(this.contactId)
+    this.companyService.contactDetail(this.contactId).subscribe(data => {
+      if (data.success) {
+        this.contactdata = data.contact;
+        console.log("contactdata", this.contactdata);
+      }
+    });
+  }
+
+  deleteAddress() {
+    console.log(this.addressId);
+    this.companyService.deleteAddress(this.addressId).subscribe(data => {
+      if (data.success) {
+        this.toastr.success(data.message, "Success");
+        this.getaddressList();
+      }
+      else {
+        this.toastr.error(data.message, "Error");
+      }
+    });
+
+  }
+
+  deleteContact() {
+    console.log(this.contactId);
+    this.companyService.deleteContact(this.contactId).subscribe(data => {
+      if (data.success) {
+        this.toastr.success(data.message, "Success");
+        this.getContactsList();
+      }
+      else {
+        this.toastr.error(data.message, "Error");
+      }
+    });
   }
 
   openModal(content) {

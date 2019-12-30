@@ -11,7 +11,7 @@
                                 <div class="toolbar pull-right"></div>
                                 <div class="clearfix"></div>
                             </div>
-                        
+
                             <div class="section-body mt5">
 
                                 <ul class="nav nav-tabs">
@@ -23,8 +23,7 @@
                                 <div class="tab-content">
                                     <div id="customer" class="tab-pane fade in active">
                                         <h3>Add Customer / Supplier</h3>
-                                        <form name="form"
-                                            (ngSubmit)="f.form.valid && saveCustomerSupplier();"
+                                        <form name="form" (ngSubmit)="f.form.valid && saveCustomerSupplier();"
                                             #f="ngForm" novalidate>
                                             <div class="form-group">
                                                 <div class="row">
@@ -79,11 +78,11 @@
                                                             <input id="company_short_name" type="company_short_name"
                                                                 class="form-control" name="company_short_name"
                                                                 [(ngModel)]="companydata.company_short_name"
-                                                                #company_short_name="ngModel" required
-                                                                [disabled]="companydata.ObjectId" />
+                                                                #company_short_name="ngModel"
+                                                                [disabled]="!companydata.isRename" required />
 
                                                             <span *ngIf="companyId" class="input-group-addon"
-                                                                role="button" (click)="changePassword()"><i
+                                                                role="button" (click)="openModal(renameWarning)"><i
                                                                     class="glyphicon glyphicon-pencil"></i></span>
 
                                                         </div>
@@ -240,7 +239,7 @@
                                                                 </th>
                                                                 <th>
                                                                     <mfDefaultSorter by="function">Function
-                                                                        </mfDefaultSorter>
+                                                                    </mfDefaultSorter>
                                                                 </th>
                                                                 <th>
                                                                     <mfDefaultSorter by="active">Active
@@ -258,12 +257,13 @@
                                                                 <td>{{ contacts.function }}</td>
                                                                 <td>{{ contacts.active ? "Yes" : "No" }}</td>
                                                                 <td>
-                                                                    <a type="button" class="btn btn-primary mr5">
+                                                                    <a type="button" class="btn btn-primary mr5"
+                                                                        (click)="contactId=contacts._id;getSingleContact();openModal(contacts);">
                                                                         Edit
                                                                     </a>
 
                                                                     <button type="button" class="btn btn-danger"
-                                                                        (click)="companyId=company._id; openModal(content);"
+                                                                        (click)="contactId=contacts._id; openModal(contactDel);"
                                                                         data-toggle="modal" data-target="#deleteModal">
                                                                         Delete
                                                                     </button>
@@ -312,11 +312,11 @@
                                                                 </th>
                                                                 <th>
                                                                     <mfDefaultSorter by="city">City
-                                                                        </mfDefaultSorter>
+                                                                    </mfDefaultSorter>
                                                                 </th>
                                                                 <th>
                                                                     <mfDefaultSorter by="country">Country
-                                                                        </mfDefaultSorter>
+                                                                    </mfDefaultSorter>
                                                                 </th>
                                                                 <th>
                                                                     <mfDefaultSorter by="active">Active
@@ -335,13 +335,13 @@
                                                                 <td>{{ address.country }}</td>
                                                                 <td>{{ address.active ? "Yes" : "No" }}</td>
                                                                 <td>
-                                                                    <a type="button" class="btn btn-primary mr5">
+                                                                    <a type="button" class="btn btn-primary mr5"
+                                                                        (click)="addressId=address._id;getSingleAddress();openModal(addresses);">
                                                                         Edit
                                                                     </a>
 
                                                                     <button type="button" class="btn btn-danger"
-                                                                        (click)="companyId=company._id; openModal(content);"
-                                                                        data-toggle="modal" data-target="#deleteModal">
+                                                                        (click)="addressId=address._id; openModal(addressDel);">
                                                                         Delete
                                                                     </button>
                                                                 </td>
@@ -375,7 +375,7 @@
             <button type="button" class="close" data-dismiss="modal" (click)="modal.close()">&times;</button>
             <h4 class="modal-title">Add Contact</h4>
         </div>
-        <form name="form" (ngSubmit)="companyId && f.form.valid && saveContact()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="companyId && f.form.valid && saveContact(f)" #f="ngForm" novalidate>
             <div class="modal-body">
                 <div class="row">
 
@@ -473,7 +473,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" >Save</button>
+                <button class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
             </div>
         </form>
@@ -484,19 +484,19 @@
             <button type="button" class="close" (click)="modal.close()">&times;</button>
             <h4 class="modal-title">Add Address </h4>
         </div>
-        <form name="form" (ngSubmit)="companyId && f.form.valid &&  saveAddress()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="companyId && f.form.valid && saveAddress(f)" #f="ngForm" novalidate>
             <div class="modal-body">
                 <div class="row">
 
                     <div class="form-row col-md-12">
                         <div class="form-group col-md-3">
                             <label>Street</label>
-                            <input type="text" name="title" [(ngModel)]="addressdata.street" #street="ngModel"
+                            <input type="text" name="street" [(ngModel)]="addressdata.street" #street="ngModel"
                                 class="form-control">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputState">Number</label>
-                            <input type="number" name="title" [(ngModel)]="addressdata.number" #number="ngModel"
+                            <input type="number" name="number" [(ngModel)]="addressdata.number" #number="ngModel"
                                 required class="form-control">
                         </div>
 
@@ -523,7 +523,7 @@
                             <input type="email" name="country" [(ngModel)]="addressdata.country" #country="ngModel"
                                 class="form-control">
                         </div>
-                        
+
                         <div class="form-group col-md-2">
                             <label>Active</label>
                             <ui-switch name="active" [(ngModel)]="addressdata.active" [checked]="addressdata.active"
@@ -539,5 +539,49 @@
                 <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
             </div>
         </form>
+    </ng-template>
+
+    <ng-template #contactDel let-modal>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this Contact?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteContact();modal.close();">Delete</button>
+            <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
+        </div>
+    </ng-template>
+
+    <ng-template #addressDel let-modal>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete this Address?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="deleteAddress();modal.close();">Delete</button>
+            <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
+        </div>
+    </ng-template>
+
+    <ng-template #renameWarning let-modal>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Rename</h4>
+        </div>
+        <div class="modal-body">
+            <p>Changing the short name leads to the creation of a new server-side directory. Are you sure you want to go
+                ahead?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary"
+                (click)="companydata.isRename = true;modal.close();">Yes</button>
+            <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
+        </div>
     </ng-template>
 </div>

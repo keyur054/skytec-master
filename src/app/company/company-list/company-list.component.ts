@@ -34,7 +34,6 @@ export class CompanyListComponent implements OnInit {
 
   filterCompanyList(data) {
     data.company.forEach(element => {
-      console.log(element)
       element.customer_supplier.some(function (item) {
         if (item == 1)
           element.customer_internalC = "C" + element.customer_supplier_no.substring(0, 3) + "_" + element.company_short_name
