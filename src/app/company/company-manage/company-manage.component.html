@@ -75,7 +75,7 @@
                                                         <label>Company Short Name *</label>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <div class="" [ngClass]="{ 'input-group': userId }">
+                                                        <div [ngClass]="{ 'input-group': companyId }">
                                                             <input id="company_short_name" type="company_short_name"
                                                                 class="form-control" name="company_short_name"
                                                                 [(ngModel)]="companydata.company_short_name"
@@ -375,7 +375,7 @@
             <button type="button" class="close" data-dismiss="modal" (click)="modal.close()">&times;</button>
             <h4 class="modal-title">Add Contact</h4>
         </div>
-        <form name="form" (ngSubmit)="companyId && f.form.valid && saveContact() && modal.close()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="companyId && f.form.valid && saveContact()" #f="ngForm" novalidate>
             <div class="modal-body">
                 <div class="row">
 
@@ -484,7 +484,7 @@
             <button type="button" class="close" (click)="modal.close()">&times;</button>
             <h4 class="modal-title">Add Address </h4>
         </div>
-        <form name="form" (ngSubmit)="companyId && f.form.valid &&  saveAddress() && modal.close()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="companyId && f.form.valid &&  saveAddress()" #f="ngForm" novalidate>
             <div class="modal-body">
                 <div class="row">
 
@@ -535,7 +535,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" (click)="modal.close()">Save</button>
+                <button class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" (click)="modal.close()">Close</button>
             </div>
         </form>
