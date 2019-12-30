@@ -54,7 +54,8 @@ export class CompanyManageComponent implements OnInit {
       this.getCompanyDetail();
       this.getContactsList();
       this.getaddressList();
-      this.companydata = false;
+      this.companydata.isRename = false;
+      //this.companydata = false;
     }
 
     this.getQmsList();
@@ -126,6 +127,11 @@ export class CompanyManageComponent implements OnInit {
     }
   }
 
+  onContactSexChange(event, type, list) {
+    list = type;
+    console.log(type);
+  }
+
   saveCustomerSupplier() {
     console.log("companydata", this.companydata);
     if (!this.companydata.customer_supplier || this.companydata.customer_supplier.length == 0) {
@@ -160,7 +166,7 @@ export class CompanyManageComponent implements OnInit {
   }
 
   saveContact(form: NgForm) {
-    console.log("contactdata", this.contactdata);
+
     if (this.companyId) {
 
       var apiCall = null;
@@ -169,7 +175,8 @@ export class CompanyManageComponent implements OnInit {
         this.contactdata.c_id = this.companyId
         apiCall = this.companyService.createcontact(this.contactdata);
       } else {
-        apiCall = this.companyService.updatecontact(this.companyId, this.companydata);
+        console.log(this.contactdata)
+        apiCall = this.companyService.updatecontact(this.contactId, this.contactdata);
       }
       if (apiCall) {
         apiCall.subscribe(resp => {
@@ -255,7 +262,7 @@ export class CompanyManageComponent implements OnInit {
   }
 
   deleteContact() {
-    console.log(this.contactId);
+    
     this.companyService.deleteContact(this.contactId).subscribe(data => {
       if (data.success) {
         this.toastr.success(data.message, "Success");

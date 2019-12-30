@@ -84,7 +84,6 @@
                                                             <span *ngIf="companyId" class="input-group-addon"
                                                                 role="button" (click)="openModal(renameWarning)"><i
                                                                     class="glyphicon glyphicon-pencil"></i></span>
-
                                                         </div>
                                                         <div *ngIf="f.submitted && company_short_name.invalid"
                                                             class="error">
@@ -218,10 +217,9 @@
                                                         Add Contact
                                                     </a>
                                                 </div>
-
                                                 <div class="table-responsive">
                                                     <table class="table row-border hover" [mfData]="contactsList"
-                                                        #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                        #mf1="mfDataTable" [mfRowsOnPage]="10">
                                                         <thead>
                                                             <tr>
                                                                 <th>No.</th>
@@ -249,22 +247,21 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let contacts of mf.data; let i = index">
+                                                            <tr *ngFor="let cnt of mf1.data; let i = index;">
                                                                 <td>{{ i + 1 }}</td>
-                                                                <td>{{ contacts.title }}</td>
-                                                                <td>{{ contacts.first_name  }}</td>
-                                                                <td>{{ contacts.surname }}</td>
-                                                                <td>{{ contacts.function }}</td>
-                                                                <td>{{ contacts.active ? "Yes" : "No" }}</td>
+                                                                <td>{{ cnt.title }}</td>
+                                                                <td>{{ cnt.first_name  }}</td>
+                                                                <td>{{ cnt.surname }}</td>
+                                                                <td>{{ cnt.function }}</td>
+                                                                <td>{{ cnt.active ? "Yes" : "No" }}</td>
                                                                 <td>
                                                                     <a type="button" class="btn btn-primary mr5"
-                                                                        (click)="contactId=contacts._id;getSingleContact();openModal(contacts);">
+                                                                        (click)="contactId=cnt._id;getSingleContact();openModal(contacts);">
                                                                         Edit
                                                                     </a>
 
                                                                     <button type="button" class="btn btn-danger"
-                                                                        (click)="contactId=contacts._id; openModal(contactDel);"
-                                                                        data-toggle="modal" data-target="#deleteModal">
+                                                                        (click)="contactId=cnt._id; openModal(contactDel);">
                                                                         Delete
                                                                     </button>
                                                                 </td>
@@ -280,6 +277,7 @@
                                                         </tfoot>
                                                     </table>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -387,8 +385,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputState">First name*</label>
-                            <input type="text" name="title" [(ngModel)]="contactdata.first_name" #first_name="ngModel"
-                                required class="form-control">
+                            <input type="text" name="first_name" [(ngModel)]="contactdata.first_name"
+                                #first_name="ngModel" required class="form-control">
 
                             <div *ngIf="f.submitted && first_name.invalid" class="error">
                                 <div *ngIf="first_name.errors.required">
@@ -398,7 +396,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label>Surname*</label>
-                            <input type="text" name="title" [(ngModel)]="contactdata.surname" #surname="ngModel"
+                            <input type="text" name="surname" [(ngModel)]="contactdata.surname" #surname="ngModel"
                                 required class="form-control">
 
                             <div *ngIf="f.submitted && surname.invalid" class="error">
@@ -409,7 +407,8 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label>Sex</label>
-                            <select class="form-control" [(ngModel)]="contactdata.sex" name="sex" #sex="ngModel">
+                            <select class="form-control" [(ngModel)]="contactdata.sex" name="sex" #sex="ngModel"
+                                (change)="onContactSexChange($event, sex.value, contactdata.sex)">
                                 <option *ngFor="let sex of sexList" value={{sex._id}}>
                                     {{sex.value}}
                                 </option>
@@ -417,12 +416,12 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">Department</label>
-                            <input type="text" name="title" [(ngModel)]="contactdata.department" #department="ngModel"
-                                class="form-control">
+                            <input type="text" name="department" [(ngModel)]="contactdata.department"
+                                #department="ngModel" class="form-control">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">Function</label>
-                            <input type="text" name="title" [(ngModel)]="contactdata.function" #function="ngModel"
+                            <input type="text" name="function" [(ngModel)]="contactdata.function" #function="ngModel"
                                 class="form-control">
                         </div>
 
@@ -509,7 +508,7 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>City*</label>
-                            <input type="text" name="city" [(ngModel)]="addressdata.city" #city="ngModel"
+                            <input type="text" name="city" [(ngModel)]="addressdata.city" #city="ngModel" required
                                 class="form-control">
 
                             <div *ngIf="f.submitted && city.invalid" class="error">
