@@ -46,6 +46,7 @@ export class CompanyManageComponent implements OnInit {
   ngOnInit() {
     this.companyId = this.route.snapshot.paramMap.get("id");
     if (this.companyId) {
+      this.companydata.ObjectId = this.companyId;
       this.getCompanyDetail();
       this.getContactsList();
       this.getaddressList();
