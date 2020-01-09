@@ -10,6 +10,9 @@ import { UserListComponent } from "./auth/user-list/user-list.component";
 import { UserManageComponent } from "./auth/user-manage/user-manage.component";
 import { CompanyListComponent } from "./company/company-list/company-list.component";
 import { CompanyManageComponent } from "./company/company-manage/company-manage.component";
+import { MasterDataComponent } from "./master-data/master-data.component";
+import { AircraftListComponent } from "./master-data/aircraft-list/aircraft-list.component";
+
 
 const routes: Routes = [
   {
@@ -36,6 +39,10 @@ const routes: Routes = [
       { path: "company", component: CompanyListComponent },
       { path: "company/create", component: CompanyManageComponent },
       { path: "company/update/:id", component: CompanyManageComponent },
+      { path: "masterdata", component: MasterDataComponent },
+      { path: "aircraft", component: AircraftListComponent },
+
+      
     ],
     canActivate: [AuthGuard]
   }

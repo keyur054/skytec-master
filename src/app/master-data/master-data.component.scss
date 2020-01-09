@@ -1,0 +1,183 @@
+.metro-tile-container {
+    width: 100%;
+  }
+  
+  .metro-tile {
+    float: left;
+    position: relative;
+    padding: 5px;
+    min-height: 1px;
+    overflow: hidden;
+    margin-bottom: 25px;
+  }
+  * {
+    color: #fff;
+  }
+  // .metro-tile-sm {
+  //   height: 90px;
+  //   width: 25%;
+  // }
+  
+  .metro-tile-md {
+    height: 180px;
+    width: 100%;
+  }
+  
+  .metro-tile-lg {
+    height: 180px;
+    width: 100%;
+  }
+  
+  @media (min-width: 992px) {
+    .metro-tile-sm {
+      height: 90px;
+      width: 90px;
+    }
+  
+    .metro-tile-md {
+      height: 180px;
+      width: 100%;
+    }
+  
+    .metro-tile-lg {
+      height: 180px;
+      width: 375px;
+    }
+  }
+  
+  .metro-tile .glyphicon,
+  .metro-tile .badge {
+    padding: 0 25px;
+    float: left;
+  }
+  
+  // .metro-tile-sm .glyphicon,
+  // .metro-tile-sm .label,
+  // .metro-tile-sm .badge {
+  //   font-size: 20pt;
+  // }
+  
+  // .metro-tile-md .glyphicon,
+  // .metro-tile-md .label,
+  // .metro-tile-md .badge {
+  //   font-size: 40pt;
+  // }
+  
+  // .metro-tile-lg .glyphicon,
+  // .metro-tile-lg .label,
+  // .metro-tile-lg .badge {
+  //   font-size: 80pt;
+  // }
+  
+  .metro-tile-page {
+    right: 5px;
+    position: absolute;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .metro-tile-page.active {
+    display: block;
+  }
+  
+  .metro-tile-page.active h4 {
+    z-index: 100;
+    position: absolute;
+    color: white;
+    bottom: 10%;
+  }
+  
+  .metro-tile-md .metro-tile-page.active h4,
+  .metro-tile-lg .metro-tile-page.active h4 {
+    font-size: 22px;
+    bottom: 10%;
+  }
+  
+  .metro-tile-sm .metro-tile-page.active h4 {
+    font-size: 12px;
+    bottom: 5%;
+    text-align: right;
+  }
+  
+  .metro-tile-page.active img {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+  
+  .metro-tile-page-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+  }
+  
+  .metro-tile-page-success .badge {
+    color: #4cae4c;
+    background-color: #fff;
+  }
+  
+  .metro-tile-page-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+  
+  .metro-tile-page-danger .badge {
+    color: #d9534f;
+    background-color: #fff;
+  }
+  
+  .metro-tile-page-warning {
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+  }
+  
+  .metro-tile-page-warning .badge {
+    color: #eea236;
+    background-color: #fff;
+  }
+  
+  .metro-tile-page-info {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+  }
+  
+  .metro-tile-page-info .badge {
+    color: #46b8da;
+    background-color: #fff;
+  }
+  
+  .image-container {
+    margin-top: 20px;
+  }
+  .text-container {
+    bottom: 0px;
+    position: inherit;
+    padding: 10px;
+  }
+  
+  .metro-tile-1 {
+    background-color: #e55328;
+  }
+  .metro-tile-2 {
+    background-color: #11ac0b;
+  }
+  .metro-tile-3 {
+    background-color: #a100ac;
+  }
+  .metro-tile-4 {
+    background-color: #643ec3;
+  }
+  .metro-tile-5 {
+    background-color: #af103a;
+  }
+  .mt-5{
+    margin-top: 5rem;
+  }

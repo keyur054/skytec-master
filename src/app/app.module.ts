@@ -24,6 +24,8 @@ import { UserListComponent } from "./auth/user-list/user-list.component";
 import { UserManageComponent } from "./auth/user-manage/user-manage.component";
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { CompanyManageComponent } from './company/company-manage/company-manage.component';
+import { MasterDataComponent } from './master-data/master-data.component';
+import { AircraftListComponent } from './master-data/aircraft-list/aircraft-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CompanyManageComponent } from './company/company-manage/company-manage.
     UserListComponent,
     UserManageComponent,
     CompanyListComponent,
-    CompanyManageComponent
+    CompanyManageComponent,
+    MasterDataComponent,
+    AircraftListComponent
   ],
   imports: [
     NgbModule,
